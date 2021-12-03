@@ -1,0 +1,16 @@
+{
+  "name": "be_positive",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "node contract/compile.js",
+    "build:debug": "node contract/compile.js --debug",
+    "dev:deploy": "npm run build:contract:debug && npx near dev-deploy && rm -rf out",
+    "deploy": "npm run build:contract && npx near deploy"
+  },
+  "devDependencies": {
+    "near-cli": "^2.1.1",
+    "shelljs": "^0.8.4"
+  },
+  "dependencies": {}
+}
