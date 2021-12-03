@@ -5,8 +5,8 @@
   "scripts": {
     "build": "node contract/compile.js",
     "build:debug": "node contract/compile.js --debug",
-    "dev:deploy": "npm run build:contract:debug && npx near dev-deploy && rm -rf out",
-    "deploy": "npm run build:contract && npx near deploy"
+    "dev:deploy": "npm run build:debug && npx near dev-deploy && rm -rf out",
+    "deploy": "npm run build && npx near deploy"
   },
   "devDependencies": {
     "near-cli": "^2.1.1",
