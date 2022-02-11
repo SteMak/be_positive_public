@@ -1,0 +1,178 @@
+:root {
+  --straight-bright: #ffffff;
+  --straight-main: #f1f1f1ec;
+  --straight-light: #ffffff30;
+  --straight-disabled: #f1f1f1c4;
+
+  --input-borders: #83838380;
+
+  --button-bar: #53535380;
+  --button-bar-active: #41414180;
+  --button-bar-mobile: #494949;
+  --button-bar-mobile-active: #424242;
+
+  --card-active: #00b0f54d;
+
+  --price: #54cfff;
+  --account-links: #d04af6;
+  --account-links-active: #c800ff;
+
+  --play-all-back: #b855d480;
+
+  --button-light: #48d4ffcc;
+  --button-dark: #43bce0cc;
+  --button-background: linear-gradient(var(--button-light), var(--button-dark));
+  --button-background-active: var(--button-dark);
+  --button-disable-light: #9e9e9ecc;
+  --button-disable-dark: #8a8a8acc;
+  --button-disable-background: linear-gradient(var(--button-disable-light), var(--button-disable-dark));
+
+  --button-burn-background: #000000;
+  --button-burn-background-active: #202020;
+
+  --button-buy-light: #ff974bee;
+  --button-buy-dark: #ff734aee;
+  --button-buy-background: linear-gradient(var(--button-buy-light), var(--button-buy-dark));
+  --button-buy-background-active: var(--button-buy-dark);
+
+  --button-slider-light: #48d4ff;
+  --button-slider-dark: #43bce0;
+  --button-slider-background: linear-gradient(var(--button-slider-light), var(--button-slider-dark));
+
+  --scrollbar: #00000000;
+  --scrollbar-thumb: #31255e4d;
+  --scrollbar-thumb-active: #4030774d;
+
+  --inverse-main: #575757;
+  --inverse-back-popup: #575757;
+  --inverse-back: #9e8e79;
+  --inverse-header: #5757577e;
+  --inverse-sidebar: #4b4b4b7e;
+
+  --inverse-patno: #00000030;
+  --inverse-patno-logo: #00000060;
+
+  --inverse-night: #44444480;
+  --inverse-dark: #77767780;
+  --inverse-light: #c0c0c080;
+  --inverse-sign: #d2d2d280;
+
+  --palitra-green: #2d82a7;
+  --palitra-purple: #7e3398;
+  --palitra-orange: #ff8000;
+
+  --palitra-warning: #ff734add;
+
+  --invisible: #00000000;
+}
+
+body {
+  font-weight: 500;
+  font-size: 18px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  background-color: var(--inverse-back);
+  margin: 0;
+  overflow: overlay;
+}
+
+a,
+a:hover,
+a:visited,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.price_value_wrap {
+  white-space: nowrap;
+}
+
+.player_container {
+  margin: auto;
+  width: 100%;
+  height: 110px;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.back_video {
+  z-index: -1000;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  filter: brightness(0.9);
+}
+
+.back_video_blurred {
+  filter: brightness(0.9) opacity(0.8) grayscale(9) blur(40px);
+}
+
+.back_image {
+  z-index: 100;
+  position: absolute;
+}
+
+.morda_1 {
+  right: calc(9vw + 13px);
+  top: calc(60px + 15% - 100px);
+
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.morda_1_hidden {
+  visibility: hidden;
+}
+
+.morda_1_back {
+  z-index: -100;
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  background-color: var(--inverse-patno);
+  width: 900px;
+  height: 900px;
+  transform: translate(350px, -350px);
+}
+.morda_logo_back {
+  left: 0;
+  top: 0;
+  z-index: -100;
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  background-color: var(--inverse-patno-logo);
+  width: 500px;
+  height: 500px;
+  transform: translate(-200px, -200px);
+}
+
+.logo_emoji {
+  width: 40px;
+  height: 40px;
+  background-image: url("/src/img/logo.svg");
+  background-size: 40px;
+  margin-right: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -11,7 +11,7 @@ use near_contract_standards::non_fungible_token::metadata::{
 use near_contract_standards::non_fungible_token::{NonFungibleToken, Token, TokenId};
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::collections::{LazyOption, LookupMap, LookupSet, UnorderedSet};
-use near_sdk::json_types::ValidAccountId;
+use near_sdk::json_types::{ValidAccountId, U128};
 use near_sdk::serde::{Deserialize, Serialize};
 use near_sdk::serde_json::json;
 use near_sdk::{
@@ -24,7 +24,6 @@ setup_alloc!();
 static IMAGE_ICON: &str = include_str!("../../logo.base64");
 
 const SINGLE_CALL_GAS: Gas = 50_000_000_000_000;
-const ONE_YOCTO: Balance = 1;
 
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
@@ -37,6 +36,7 @@ pub struct Contract {
   events_transfer: LookupMap<String, EventTransfer>,
   events_lock: LookupMap<String, EventLock>,
   events_pricing: LookupMap<String, EventPricing>,
+  events_ban: LookupMap<String, EventBan>,
   next_event_id: u128,
   mint_locked: LookupSet<String>,
 }
@@ -47,6 +47,7 @@ pub enum EventType {
   Transfer(EventTransfer),
   Lock(EventLock),
   Pricing(EventPricing),
+  Ban(EventBan),
 }
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, BorshDeserialize, BorshSerialize)]
 #[serde(crate = "near_sdk::serde")]
@@ -74,6 +75,22 @@ pub struct EventPricing {
   token_id: TokenId,
   timestamp: String,
 }
+
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Debug, PartialEq)]
+#[serde(crate = "near_sdk::serde")]
+pub enum BanStatus {
+  Ban,
+  Unban,
+  Warning,
+}
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, BorshDeserialize, BorshSerialize)]
+#[serde(crate = "near_sdk::serde")]
+pub struct EventBan {
+  initiator: AccountId,
+  receiver: AccountId,
+  status: BanStatus,
+  timestamp: String,
+}
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, BorshDeserialize, BorshSerialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct ReturnEvents {
@@ -85,15 +102,23 @@ pub struct ReturnEvents {
 #[serde(crate = "near_sdk::serde")]
 pub struct Royalty {
   mint_price: Balance,
-  creator_royalty: u8,
-  my_royalty: u8,
+  min_pricing_fee: Balance,
+  min_transfer_fee: Balance,
+  min_buy_fee: Balance,
+  creator_royalty: u16,
+  my_royalty: u16,
+  royalty_full: u16,
 }
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, BorshDeserialize, BorshSerialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct ReturnRoyalty {
   mint_price: String,
-  creator_royalty: u8,
-  my_royalty: u8,
+  min_pricing_fee: String,
+  min_transfer_fee: String,
+  min_buy_fee: String,
+  creator_royalty: u16,
+  my_royalty: u16,
+  royalty_full: u16,
 }
 
 #[derive(BorshSerialize, BorshStorageKey)]
@@ -107,6 +132,8 @@ enum StorageKey {
   Etransfer,
   Elock,
   Epricing,
+  Euserban,
+  Owners,
   MintLocked,
 }
 
@@ -217,11 +244,34 @@ impl Contract {
     );
     self.next_event_id += 1;
   }
+  fn add_ban(
+    &mut self,
+    initiator: AccountId,
+    receiver: AccountId,
+    status: BanStatus,
+    timestamp: String,
+  ) {
+    self.events_ban.insert(
+      &self.next_event_id.to_string(),
+      &EventBan {
+        initiator,
+        receiver,
+        status,
+        timestamp,
+      },
+    );
+    self.next_event_id += 1;
+  }
 
   #[init]
   pub fn init_meta(owner: ValidAccountId) -> Self {
     assert!(!env::state_exists(), "Already initialized");
-    let mut owners = UnorderedSet::new(StorageKey::Moderators);
+    let mut owners = UnorderedSet::new(StorageKey::Owners);
+    assert_eq!(
+      owner.to_string(),
+      env::predecessor_account_id(),
+      "Please, define yourself as contract owner"
+    );
     owners.insert(&owner);
     Self {
       tokens: NonFungibleToken::new(
@@ -234,7 +284,7 @@ impl Contract {
         StorageKey::Metadata,
         Some(&NFTContractMetadata {
           spec: NFT_METADATA_SPEC.to_string(),
-          name: "Be Positive".to_string(),
+          name: "Haher".to_string(),
           symbol: "HA-HA".to_string(),
           icon: Some(IMAGE_ICON.to_string()),
           base_uri: None,
@@ -245,13 +295,18 @@ impl Contract {
       owners,
       moderators: UnorderedSet::new(StorageKey::Moderators),
       royalty: Royalty {
-        mint_price: 1_000_000_000_000_000_000_000_000,
-        creator_royalty: 10,
-        my_royalty: 10,
+        mint_price: 50_000_000_000_000_000_000_000,
+        min_pricing_fee: 3_000_000_000_000_000_000_000,
+        min_transfer_fee: 3_000_000_000_000_000_000_000,
+        min_buy_fee: 5_000_000_000_000_000_000_000,
+        creator_royalty: 100,
+        my_royalty: 50,
+        royalty_full: 10000,
       },
       events_transfer: LookupMap::new(StorageKey::Etransfer),
       events_lock: LookupMap::new(StorageKey::Elock),
       events_pricing: LookupMap::new(StorageKey::Epricing),
+      events_ban: LookupMap::new(StorageKey::Euserban),
       next_event_id: 0,
       mint_locked: LookupSet::new(StorageKey::MintLocked),
     }
@@ -275,7 +330,13 @@ impl Contract {
               let evl = self.events_lock.get(&i.to_string());
               match evl {
                 Some(e) => EventType::Lock(e),
-                None => break,
+                None => {
+                  let evb = self.events_ban.get(&i.to_string());
+                  match evb {
+                    Some(e) => EventType::Ban(e),
+                    None => break,
+                  }
+                }
               }
             }
           }
@@ -314,21 +375,44 @@ impl Contract {
         .transfer(money.parse::<Balance>().expect("Parsing amount failed")),
     };
   }
-  pub fn update_royalty(&mut self, mint_price: String, creator_royalty: u8, my_royalty: u8) {
+  pub fn update_royalty(
+    &mut self,
+    mint_price: String,
+    min_pricing_fee: String,
+    min_transfer_fee: String,
+    min_buy_fee: String,
+    creator_royalty: u16,
+    my_royalty: u16,
+    royalty_full: u16,
+  ) {
     self.is_caller_owner();
     self.royalty = Royalty {
       mint_price: mint_price
         .parse::<Balance>()
         .expect("Parsing mint price failed"),
+      min_pricing_fee: min_pricing_fee
+        .parse::<Balance>()
+        .expect("Parsing update price failed"),
+      min_transfer_fee: min_transfer_fee
+        .parse::<Balance>()
+        .expect("Parsing transfer price failed"),
+      min_buy_fee: min_buy_fee
+        .parse::<Balance>()
+        .expect("Parsing buy price failed"),
       creator_royalty,
       my_royalty: my_royalty,
+      royalty_full: royalty_full,
     }
   }
   pub fn view_royalty(self) -> ReturnRoyalty {
     ReturnRoyalty {
       mint_price: self.royalty.mint_price.to_string(),
+      min_pricing_fee: self.royalty.min_pricing_fee.to_string(),
+      min_transfer_fee: self.royalty.min_transfer_fee.to_string(),
+      min_buy_fee: self.royalty.min_buy_fee.to_string(),
       creator_royalty: self.royalty.creator_royalty,
       my_royalty: self.royalty.my_royalty,
+      royalty_full: self.royalty.royalty_full,
     }
   }
 
@@ -360,12 +444,14 @@ impl Contract {
     let mut metadata = self.get_metadata(&token_id);
     metadata.status = Some(TokenStatus::LockedToTransfer);
     self.put_metadata(&token_id, &metadata);
+    let owner = self.get_owner(&token_id);
     self.add_lock(
       env::signer_account_id(),
       TokenStatus::LockedToTransfer,
       token_id,
       env::block_timestamp().to_string(),
     );
+    self.ban_warning(owner)
   }
   pub fn lock_to_listen(&mut self, token_id: TokenId) {
     self.is_caller_moderator();
@@ -379,7 +465,41 @@ impl Contract {
       token_id,
       env::block_timestamp().to_string(),
     );
-    self.mint_locked.insert(&owner);
+    self.ban_create(owner)
+  }
+
+  pub fn ban_create(&mut self, user_id: AccountId) {
+    self.is_caller_moderator();
+    if !self.mint_locked.contains(&user_id) {
+      self.mint_locked.insert(&user_id);
+      self.add_ban(
+        env::signer_account_id(),
+        user_id,
+        BanStatus::Ban,
+        env::block_timestamp().to_string(),
+      );
+    }
+  }
+  pub fn ban_disable(&mut self, user_id: AccountId) {
+    self.is_caller_moderator();
+    if self.mint_locked.contains(&user_id) {
+      self.mint_locked.remove(&user_id);
+      self.add_ban(
+        env::signer_account_id(),
+        user_id,
+        BanStatus::Unban,
+        env::block_timestamp().to_string(),
+      );
+    }
+  }
+  pub fn ban_warning(&mut self, user_id: AccountId) {
+    self.is_caller_moderator();
+    self.add_ban(
+      env::signer_account_id(),
+      user_id,
+      BanStatus::Warning,
+      env::block_timestamp().to_string(),
+    );
   }
 
   #[payable]
@@ -461,7 +581,7 @@ impl Contract {
       })
       .to_string()
       .as_bytes(),
-      ONE_YOCTO,
+      self.royalty.min_transfer_fee,
       SINGLE_CALL_GAS,
     );
 
@@ -477,7 +597,7 @@ impl Contract {
         })
         .to_string()
         .as_bytes(),
-        2500000000000000000000,
+        self.royalty.min_pricing_fee,
         SINGLE_CALL_GAS,
       );
     }
@@ -502,11 +622,11 @@ impl Contract {
     let caller: AccountId = env::predecessor_account_id();
     let attached = env::attached_deposit();
     assert!(
-      2500000000000000000000 <= attached,
+      self.royalty.min_pricing_fee <= attached,
       "Not enough money attached"
     );
-    if 2500000000000000000000 < attached {
-      Promise::new(caller).transfer(attached - 2500000000000000000000);
+    if self.royalty.min_pricing_fee < attached {
+      Promise::new(caller).transfer(attached - self.royalty.min_pricing_fee);
     }
 
     let signer: AccountId = env::signer_account_id();
@@ -542,8 +662,15 @@ impl Contract {
     let metadata = self.get_metadata(&token_id);
     let selleble = metadata.selleble.unwrap();
     let price = metadata.price.unwrap();
-    let full_price =
-      price * (100 + self.royalty.my_royalty + self.royalty.creator_royalty) as Balance / 100;
+
+    let mut my_royalty =
+      self.royalty.my_royalty as Balance * price / self.royalty.royalty_full as Balance;
+    if my_royalty < self.royalty.min_buy_fee {
+      my_royalty = self.royalty.min_buy_fee
+    }
+    let full_price = my_royalty
+      + price * (self.royalty.royalty_full + self.royalty.creator_royalty) as Balance
+        / self.royalty.royalty_full as Balance;
 
     assert!(full_price <= attached, "Not enough money attached");
     if full_price < attached {
@@ -581,14 +708,19 @@ impl Contract {
       })
       .to_string()
       .as_bytes(),
-      ONE_YOCTO,
+      self.royalty.min_transfer_fee,
       SINGLE_CALL_GAS,
     );
 
     if creator.clone() == old_owner {
-      Promise::new(creator).transfer(price * (100 + self.royalty.creator_royalty) as Balance / 100);
+      Promise::new(creator).transfer(
+        price * (self.royalty.royalty_full + self.royalty.creator_royalty) as Balance
+          / self.royalty.royalty_full as Balance,
+      );
     } else {
-      Promise::new(creator).transfer(price * self.royalty.creator_royalty as Balance / 100);
+      Promise::new(creator).transfer(
+        price * self.royalty.creator_royalty as Balance / self.royalty.royalty_full as Balance,
+      );
       Promise::new(old_owner).transfer(price);
     }
   }
@@ -601,6 +733,17 @@ impl Contract {
     approval_id: Option<u64>,
     memo: Option<String>,
   ) {
+    let attached = env::attached_deposit();
+
+    assert!(
+      self.royalty.min_transfer_fee <= attached,
+      "Not enough money attached"
+    );
+    if self.royalty.min_transfer_fee < attached {
+      Promise::new(env::predecessor_account_id())
+        .transfer(attached - self.royalty.min_transfer_fee);
+    }
+
     let old_owner = self.get_owner(&token_id).to_string();
     let mut metadata = self.get_metadata(&token_id);
     let status = metadata.status.clone().unwrap();
@@ -634,6 +777,17 @@ impl Contract {
     memo: Option<String>,
     msg: String,
   ) -> PromiseOrValue<bool> {
+    let attached = env::attached_deposit();
+
+    assert!(
+      self.royalty.min_transfer_fee <= attached,
+      "Not enough money attached"
+    );
+    if self.royalty.min_transfer_fee < attached {
+      Promise::new(env::predecessor_account_id())
+        .transfer(attached - self.royalty.min_transfer_fee);
+    }
+
     let old_owner = self.get_owner(&token_id).to_string();
     let mut metadata = self.get_metadata(&token_id);
     let status = metadata.status.clone().unwrap();
@@ -761,5 +915,3 @@ impl Contract {
       .nft_tokens_for_owner(account_id, from_index, limit)
   }
 }
-
-use near_sdk::json_types::U128;

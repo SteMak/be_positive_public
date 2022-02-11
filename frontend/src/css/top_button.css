@@ -1,0 +1,29 @@
+.top_button {
+  position: fixed;
+  right: 5vw;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  background-color: var(--inverse-light);
+}
+
+.topin {
+  transition: all 0.4s ease-out;
+  bottom: max(8vh, 60px);
+}
+
+.topout {
+  transition: all 0.4s ease-out;
+  bottom: -100px;
+}
+
+.top_image {
+  margin-left: 5px;
+  margin-top: 4px;
+  width: 55px;
+  height: 55px;
+  fill: var(--straight-main);
+  background-image: url("/src/img/top.svg");
+  background-size: 55px;
+}

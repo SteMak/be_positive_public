@@ -1,0 +1,52 @@
+.button {
+  min-height: 24px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 6px;
+  text-align: center;
+
+  background: var(--button-background);
+}
+
+.account_id.button {
+  background: none;
+  background-color: var(--button-bar);
+  color: var(--straight-main);
+}
+.account_id.button_active,
+.account_id.button:active {
+  background-color: var(--button-bar-active);
+}
+
+.token_upbar .button {
+  background: var(--button-buy-background);
+}
+.token_upbar .button_active,
+.token_upbar .button:active {
+  background: var(--button-buy-background-active);
+}
+
+.button_active,
+.button:active {
+  background: var(--button-background-active);
+}
+
+.button_disabled,
+.button_disabled:active {
+  background: var(--button-disable-background);
+}
+
+.token_upbar .button.button_disabled,
+.token_upbar .button.button_disabled:active {
+  background: var(--button-buy-disable-background);
+}
+
+.token_upbar .button.sale_info {
+  background: none;
+  font-size: 16px;
+  color: var(--straight-main);
+  padding: 8px 2px;
+  font-weight: 400;
+}

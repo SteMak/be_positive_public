@@ -1,4 +1,5 @@
 use super::resolver::NonFungibleTokenResolver;
+use crate::non_fungible_token::assert_at_least_one_yocto;
 use crate::non_fungible_token::core::NonFungibleTokenCore;
 use crate::non_fungible_token::metadata::TokenMetadata;
 use crate::non_fungible_token::token::{Token, TokenId};
@@ -7,8 +8,8 @@ use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::collections::{LookupMap, TreeMap, UnorderedSet};
 use near_sdk::json_types::{Base64VecU8, ValidAccountId};
 use near_sdk::{
-  assert_one_yocto, env, ext_contract, log, AccountId, Balance, BorshStorageKey, CryptoHash, Gas,
-  IntoStorageKey, PromiseOrValue, PromiseResult, StorageUsage,
+  env, ext_contract, log, AccountId, Balance, BorshStorageKey, CryptoHash, Gas, IntoStorageKey,
+  PromiseOrValue, PromiseResult, StorageUsage,
 };
 use std::collections::HashMap;
 
@@ -297,7 +298,7 @@ impl NonFungibleTokenCore for NonFungibleToken {
     approval_id: Option<u64>,
     memo: Option<String>,
   ) {
-    assert_one_yocto();
+    assert_at_least_one_yocto();
     let sender_id = env::predecessor_account_id();
     self.internal_transfer(
       &sender_id,
@@ -316,7 +317,7 @@ impl NonFungibleTokenCore for NonFungibleToken {
     memo: Option<String>,
     msg: String,
   ) -> PromiseOrValue<bool> {
-    assert_one_yocto();
+    assert_at_least_one_yocto();
     let sender_id = env::predecessor_account_id();
     let (old_owner, old_approvals) = self.internal_transfer(
       &sender_id,

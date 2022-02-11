@@ -1,0 +1,30 @@
+.blured_wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -100;
+}
+.blured_circle {
+  position: absolute;
+  border-radius: 100%;
+}
+.circle_orange {
+  background-color: var(--palitra-orange);
+}
+.circle_green {
+  background-color: var(--palitra-green);
+}
+.circle_purple {
+  background-color: var(--palitra-purple);
+}
+
+.main_container {
+  padding: 10px 0;
+}
+
+.main_header {
+  margin: 32px auto;
+  width: 85vw;
+  max-width: 500px;
+  color: var(--straight-bright);
+}

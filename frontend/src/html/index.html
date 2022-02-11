@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="text/html charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Site for NEAR contract, which allows to post, sell and claim Haha tokens." />
+    <meta name="author" content="SteMak" />
+
+    <title>Haher</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="/src/css/quicksand_font.css" rel="stylesheet" />
+
+    <link href="/src/css/style.css" rel="stylesheet" type="text/css" />
+
+    <link href="/src/css/switcher.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/button.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/top_button.css" rel="stylesheet" type="text/css" />
+
+    <link href="/src/css/header.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/selector.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/card.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/full_token.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/new_inputs.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/popup.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/menu.css" rel="stylesheet" type="text/css" />
+    <link href="/src/css/sidebar.css" rel="stylesheet" type="text/css" />
+
+    <link href="/src/css/player.css" rel="stylesheet" type="text/css" />
+
+    <style id="mobile_style"></style>
+    <script src="/src/js/is_mobile.js"></script>
+
+    <link rel="apple-touch-icon" href="/src/img/logo.svg" sizes="180x180" />
+    <link rel="icon" href="/src/img/logo.svg" sizes="32x32" />
+    <link rel="icon" href="/src/img/logo.svg" sizes="16x16" />
+    <link rel="icon" href="/src/img/logo.svg" />
+
+    <meta name="theme-color" content="#575757" />
+
+    <script>
+      let connected_near = false
+      let dom_content_loaded = false
+      document.addEventListener("connect_near", () => (connected_near = true))
+      document.addEventListener("DOMContentLoaded", () => (dom_content_loaded = true))
+    </script>
+    <script src="/src/js/wallet_connection.js"></script>
+    <script async src="/src/js/connect_near.js" type="module"></script>
+  </head>
+
+  <body class="montserrat f5">
+    <video autoplay muted loop id="back_video" class="back_video">
+      <source src="/src/img/cat_ugr.mp4" type="video/mp4" />
+    </video>
+    <div class="back_image morda_logo_back"></div>
+    <div class="back_image morda_1 morda_1_back"></div>
+    <div
+      id="morda_1"
+      class="morda_1_hidden"
+      style="display: none"
+      onclick="play_all_playing = play_all_playing ? false : true; document.dispatchEvent(new Event('play_all_playing'))"
+    >
+      <img src="/src/img/morda_1.gif" id="morda_1_gif" class="back_image morda_1" style="display: none" />
+      <img src="/src/img/morda_1.png" id="morda_1_png" class="back_image morda_1" />
+    </div>
+    <div id="blur_button_mobile" class="blur_button blur_button_mobile"></div>
+    <header id="sidebar" class="sidebar">
+      <div class="menu_container menu_container_sidebar">
+        <div class="menu_item menu_item_sidebar" id="menu_gallery_sidebar">
+          <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg" class="menu_svg menu_svg_sidebar">
+            <path d="M0 0h48v48H0z" fill="none" />
+            <path
+              d="M 6 26 h 16 V 6 C 18 6 14 6 10 6 C 8 6 6 8 6 10 v 16 z m 4 16 h 12 V 30 H 6 v 8 C 6 40 8 42 10 42 z m 20 0 h 8 C 40 42 42 40 42 38 V 22 H 26 v 20 z m -4 -36 v 12 h 16 V 10 C 42 8 40 6 38 6 H 26 z"
+            />
+          </svg>
+          <div class="menu_item_name_sidebar">Gallery</div>
+        </div>
+        <div class="menu_item menu_item_sidebar" id="menu_create_sidebar">
+          <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg" class="menu_svg menu_svg_sidebar">
+            <path d="M38 6H10c-2.21 0-4 1.79-4 4v28c0 2.21 1.79 4 4 4h28c2.21 0 4-1.79 4-4V10c0-2.21-1.79-4-4-4zm-4 20h-8v8h-4v-8h-8v-4h8v-8h4v8h8v4z" />
+            <path d="M0 0h48v48H0z" fill="none" />
+          </svg>
+          <div class="menu_item_name_sidebar">Create</div>
+        </div>
+        <div class="menu_item menu_item_sidebar" id="menu_account_sidebar">
+          <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg" class="menu_svg menu_svg_sidebar">
+            <path
+              d="M6 10v28c0 2.21 1.79 4 4 4h28c2.21 0 4-1.79 4-4V10c0-2.21-1.79-4-4-4H10c-2.21 0-4 1.79-4 4zm24 8c0 3.32-2.69 6-6 6s-6-2.68-6-6c0-3.31 2.69-6 6-6s6 2.69 6 6zM12 34c0-4 8-6.2 12-6.2S36 30 36 34v2H12v-2z"
+            />
+            <path d="M0 0h48v48H0z" fill="none" />
+          </svg>
+          <div class="menu_item_name_sidebar">Account</div>
+        </div>
+      </div>
+      <div id="blur_back" class="blur_button"></div>
+      <div id="volume_placeholder" class="volume_placeholder">
+        <div class="volume_slider">
+          <div class="volume_slider_disabled"></div>
+          <div id="volume_button" class="volume_slider_button" draggable="false"></div>
+          <div id="volume_active" class="volume_slider_active"></div>
+        </div>
+      </div>
+      <div id="volume_mic" class="volume_mic"></div>
+    </header>
+
+    <header id="header" class="header">
+      <div class="header_container">
+        <a href="/" class="header_name"
+          ><div class="logo_emoji"></div>
+          Haher</a
+        >
+        <a id="sign_in" class="account_id button" style="visibility: hidden">Sign in</a>
+      </div>
+    </header>
+
+    <main class="main_container" id="main_page" style="display: none">
+      <div class="header_row">
+        <div class="main_header">
+          <h1>Share your laugh the world</h1>
+          <div class="play_all_row">
+            <h3 class="main_header_sm_el">Click and listen laugh of our users</h3>
+            <div
+              id="play_all"
+              class="play_all play_all_hidden"
+              onclick="play_all_playing = play_all_playing ? false : true; document.dispatchEvent(new Event('play_all_playing'))"
+            >
+              <div id="play_all_play" class="play_all_play" id="play_all_play"></div>
+              <div id="play_all_pause" class="play_all_pause" id="play_all_pause"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="choices">
+        <div class="choice choice_name">Sort</div>
+        <a class="choice" id="sort_popular">Popular</a>
+        <a class="choice" id="sort_newest">Newest</a>
+        <a class="choice" id="sort_cheapest">Cheapest</a>
+      </div>
+      <div id="cards" class="cards"></div>
+      <div id="top_button" class="top_button topout" onclick="go_top()">
+        <div class="top_image"></div>
+      </div>
+      <div id="back_fill" class="back_fill" style="visibility: hidden"></div>
+      <div id="full_token" class="full_token">
+        <div class="drageble_img"></div>
+        <div id="token_upbar" class="token_upbar_container">
+          <div class="token_upbar">
+            <a class="token_def_name" onclick="copy_to_clipboard(location)">
+              <div id="token_def_name_value" class="token_def_name_value"></div>
+              <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg" class="share_button">
+                <path d="M0 0h48v48H0z" fill="none" />
+                <path
+                  d="M32 2H8C5.79 2 4 3.79 4 6v28h4V6h24V2zm6 8H16c-2.21 0-4 1.79-4 4v28c0 2.21 1.79 4 4 4h22c2.21 0 4-1.79 4-4V14c0-2.21-1.79-4-4-4zm0 32H16V14h22v28z"
+                />
+              </svg>
+            </a>
+            <div class="button" id="token_buy_button">Buy</div>
+          </div>
+        </div>
+        <div class="line_break_long" id="token_separator"></div>
+        <div id="token_info_container" class="token_info_container">
+          <div id="token_info"></div>
+          <div class="button report_button" id="token_report_speech_button">Report voice-spam or speech</div>
+          <div class="button report_button" id="token_report_offence_button">Report offensive content</div>
+        </div>
+      </div>
+      <div id="back_fill_popup" class="back_fill" style="visibility: hidden"></div>
+      <div id="popup_window" class="popup_window">
+        <h3 id="popup_upbar_purchase" class="popup_upbar" style="display: none">Please note!</h3>
+        <h3 id="popup_upbar_success_purchase" class="popup_upbar" style="display: none">Thank you for shopping!</h3>
+        <h3 id="popup_upbar_report" class="popup_upbar" style="display: none">Report if the sound contains</h3>
+        <div class="line_break_long"></div>
+        <div id="popup_info_container" class="popup_info_container">
+          <div id="popup_info_purchase" style="display: none">
+            <p class="popup_info_warning">If there is speech or loud background noises in the sound it could be blocked for reselling</p>
+            <p class="popup_info_warning">If there is any offensive content in the sound it could be blocked for reselling and listening</p>
+          </div>
+          <div id="popup_info_success_purchase" style="display: none">
+            <p class="popup_info">Now the token is in your account tab</p>
+          </div>
+          <div id="popup_info_report_speech" style="display: none">
+            <p class="popup_info_warning">Speech</p>
+            <p class="popup_info_warning">No laugh</p>
+            <p class="popup_info_warning">Loud background noises</p>
+            <p class="popup_info_warning">Other annoying or unpleasant sounds</p>
+          </div>
+          <div id="popup_info_report_offence" style="display: none">
+            <p class="popup_info_warning">Any obscene words</p>
+            <p class="popup_info_warning">Violent or repulsive content</p>
+            <p class="popup_info_warning">Hateful or abusive content</p>
+            <p class="popup_info_warning">Harassment or bullying</p>
+            <p class="popup_info_warning">Promotion terrorism</p>
+          </div>
+          <div id="popup_error_purchase" style="display: none">
+            <p class="popup_error_info">Error happened, please try again</p>
+          </div>
+          <div class="button popup_button" id="popup_buy_button" style="display: none"></div>
+          <div class="button popup_button" id="popup_report_button" style="display: none">Confirm report</div>
+        </div>
+      </div>
+    </main>
+    <main class="main_container" id="account_page" style="display: none">
+      <div class="header_row">
+        <div class="main_header" id="account_header" style="display: none">
+          <h1>Welcome your account</h1>
+          <div class="play_all_row">
+            <h3 class="main_header_sm_el">Click and listen laugh of your collections</h3>
+            <div
+              id="acc_play_all"
+              class="play_all play_all_hidden"
+              onclick="play_all_playing = play_all_playing ? false : true; document.dispatchEvent(new Event('play_all_playing'))"
+            >
+              <div id="acc_play_all_play" class="play_all_play" id="play_all_play"></div>
+              <div id="acc_play_all_pause" class="play_all_pause" id="play_all_pause"></div>
+            </div>
+          </div>
+        </div>
+        <div class="main_header" id="alien_account_header" style="display: none">
+          <h1 id="alien_account_header_name">Account of</h1>
+          <div class="play_all_row">
+            <h3 class="main_header_sm_el">Click and listen laugh of another user</h3>
+            <div
+              id="acc_al_play_all"
+              class="play_all play_all_hidden"
+              onclick="play_all_playing = play_all_playing ? false : true; document.dispatchEvent(new Event('play_all_playing'))"
+            >
+              <div id="acc_al_play_all_play" class="play_all_play" id="play_all_play"></div>
+              <div id="acc_al_play_all_pause" class="play_all_pause" id="play_all_pause"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="choices">
+        <div class="choice choice_name">Filter</div>
+        <a class="choice" id="acc_filt_owned">Owned</a>
+        <a class="choice" id="acc_filt_created">Created</a>
+        <a class="choice" id="acc_filt_locked">Locked</a>
+      </div>
+      <div class="choices">
+        <div class="choice choice_name">Sort</div>
+        <a class="choice" id="acc_sort_newest">Newest</a>
+        <a class="choice" id="acc_sort_cheapest">Cheapest</a>
+        <a class="choice" id="acc_sort_richest">Richest</a>
+      </div>
+      <div id="acc_cards" class="cards"></div>
+      <div id="acc_top_button" class="top_button topout" onclick="acc_go_top()">
+        <div class="top_image"></div>
+      </div>
+      <div id="acc_back_fill" class="back_fill" style="visibility: hidden"></div>
+      <div id="acc_full_token" class="full_token">
+        <div class="drageble_img"></div>
+        <div id="acc_token_upbar" class="token_upbar_container">
+          <div class="token_upbar">
+            <a class="token_def_name" onclick="copy_to_clipboard(location)">
+              <div id="acc_token_def_name_value" class="token_def_name_value"></div>
+              <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg" class="share_button">
+                <path d="M0 0h48v48H0z" fill="none" />
+                <path
+                  d="M32 2H8C5.79 2 4 3.79 4 6v28h4V6h24V2zm6 8H16c-2.21 0-4 1.79-4 4v28c0 2.21 1.79 4 4 4h22c2.21 0 4-1.79 4-4V14c0-2.21-1.79-4-4-4zm0 32H16V14h22v28z"
+                />
+              </svg>
+            </a>
+            <div class="button" id="acc_token_buy_button">Buy</div>
+          </div>
+        </div>
+        <div class="line_break_long" id="acc_token_separator"></div>
+        <div id="acc_token_info_container" class="token_info_container">
+          <div id="acc_token_info"></div>
+          <div class="button burn_button" id="acc_token_burn_button">Throw the Token into VOID</div>
+        </div>
+      </div>
+      <div id="acc_back_fill_popup" class="back_fill" style="visibility: hidden"></div>
+      <div id="acc_popup_window" class="popup_window">
+        <h3 id="acc_popup_upbar_purchase" class="popup_upbar" style="display: none">Please note!</h3>
+        <h3 id="acc_popup_upbar_success_purchase" class="popup_upbar" style="display: none">Thank you for shopping!</h3>
+        <h3 id="acc_popup_upbar_burn" class="popup_upbar" style="display: none">Burn? Really sure?</h3>
+        <h3 id="acc_popup_upbar_success_burn" class="popup_upbar" style="display: none">Burning done!</h3>
+        <h3 id="acc_popup_upbar_update" class="popup_upbar" style="display: none">Settings</h3>
+        <h3 id="acc_popup_upbar_success_update" class="popup_upbar" style="display: none">Price updated</h3>
+        <div class="line_break_long"></div>
+        <div id="acc_popup_info_container" class="popup_info_container">
+          <div id="acc_popup_info_purchase" style="display: none">
+            <p class="popup_info_warning">If there is speech or loud background noises in the sound it could be blocked for reselling</p>
+            <p class="popup_info_warning">If there is any offensive content in the sound it could be blocked for reselling and listening</p>
+          </div>
+          <div id="acc_popup_info_success_purchase" style="display: none">
+            <p class="popup_info">Now the token is in your account tab</p>
+          </div>
+          <div id="acc_popup_info_burn" style="display: none">
+            <p class="popup_info_warning">Burning token couldn't be undone</p>
+            <p class="popup_info_warning">The sound can be reused to create new token after burning this one</p>
+            <p class="popup_info_stressed">Type "Just BURN it" below</p>
+            <input id="acc_popup_info_burn_input" autocomplete="off" class="popup_info_input" />
+          </div>
+          <div id="acc_popup_info_burn_load" class="loading_svg" style="display: none"></div>
+          <div id="acc_popup_info_success_burn" style="display: none">
+            <p class="popup_info">The token will dissapear in few seconds</p>
+          </div>
+          <div id="acc_popup_info_success_update" style="display: none">
+            <p class="popup_info">Price for the token will be updated in few seconds</p>
+          </div>
+          <div id="acc_popup_info_update" style="display: none">
+            <p class="popup_info_warning">
+              Please note, the actual price will be about <span id="popup_contract_author_fee"></span>% higher (<span id="popup_author_fee"></span>% for the
+              author and <span id="popup_contract_fee"></span>% (but at least
+              <span class="price_value_wrap"><span id="popup_contract_min_fee"></span> NEAR</span>) for the contract)
+            </p>
+            <div class="popup_info_row_container">
+              <p class="popup_info_stressed popup_info_stressed_selleble">Put on sale</p>
+              <div class="toggle_switch">
+                <input type="checkbox" id="acc_popup_info_update_input_selleble" checked />
+                <label for="acc_popup_info_update_input_selleble"></label>
+              </div>
+            </div>
+            <div class="popup_info_row_container" id="acc_popup_info_row_container_selleble">
+              <p class="popup_info_stressed">Set price in NEAR</p>
+              <input
+                id="acc_popup_info_update_input_price"
+                type="number"
+                value="1"
+                min="0"
+                step="0.1"
+                autocomplete="off"
+                class="popup_info_input popup_info_input_price"
+              />
+            </div>
+          </div>
+          <div id="acc_popup_error_purchase" style="display: none">
+            <p class="popup_error_info">Error happened, please try again</p>
+          </div>
+          <div id="acc_popup_error_update" style="display: none">
+            <p class="popup_error_info popup_error_info_update">Error happened, please try again</p>
+          </div>
+          <p id="acc_popup_error_burn" class="popup_error_info acc_popup_error_burn" style="display: none"></p>
+          <div class="button popup_button" id="acc_popup_buy_button" style="display: none"></div>
+          <div class="button popup_button" id="acc_popup_burn_button" style="display: none"></div>
+          <div class="button popup_button" id="acc_popup_update_button" style="display: none">Confirm update</div>
+        </div>
+      </div>
+    </main>
+    <main class="main_container" id="new_page" style="display: none">
+      <div id="new_create" style="display: none">
+        <div class="main_header">
+          <div class="header_row">
+            <h1>Create new NFT</h1>
+          </div>
+        </div>
+        <div class="create_container">
+          <div>
+            <p class="create_info_stressed">Input title</p>
+            <input id="create_title" autocomplete="off" class="create_info_input" />
+          </div>
+          <div>
+            <p class="create_info_stressed">Input description</p>
+            <textarea id="create_description" autocomplete="off" type="text" rows="3" wrap="soft" class="create_info_input"></textarea>
+          </div>
+          <div class="create_info_row_container">
+            <p class="create_info_stressed">Put on sale</p>
+            <div class="toggle_switch">
+              <input id="create_selleble" type="checkbox" checked />
+              <label for="create_selleble"></label>
+            </div>
+          </div>
+          <div id="create_info_row_container_price" class="create_info_row_container create_info_row_container_disabled">
+            <p class="create_info_stressed">Set price in NEAR</p>
+            <input id="create_price" type="number" value="1" min="0" step="0.1" autocomplete="off" class="create_info_input create_info_input_price" />
+          </div>
+          <div>
+            <input id="create_file" class="create_info_input create_info_input_file" style="background: none" type="file" accept="audio/*" />
+            <style id="create_file_style"></style>
+          </div>
+          <div class="back_text">
+            <p class="create_info">
+              You will be paid <span id="create_author_fee"></span>% from each sale and the contract fee is <span id="create_contract_fee"></span>% (but at
+              least <span class="price_value_wrap"><span id="create_contract_min_fee"></span> NEAR</span>), so the real price will be about
+              <span id="create_contract_author_fee"></span>% higher
+            </p>
+            <p class="create_info">If voise-spam is found the token will be blocked to transferring and selling</p>
+            <p class="create_info">If any offencive content is found the token will be permanently blocked</p>
+          </div>
+          <div id="create_back_warning" class="back_warning">
+            <p id="create_info_warning_empty" class="create_info_warning">Please, enter title and file to create token</p>
+            <p id="create_info_warning_bad_file" class="create_info_warning"></p>
+            <p id="new_error" class="create_info_warning" style="display: none">Signature error found, please try again.</p>
+          </div>
+          <div id="create_button" class="button create_button button_disabled">Confirm create</div>
+        </div>
+      </div>
+      <div id="new_finish" style="display: none">
+        <div class="main_header">
+          <h1>Finishing creating</h1>
+          <h3>Please, don't reload the page!</h3>
+        </div>
+        <div class="create_container">
+          <div>
+            <h2 id="finish_loading_anim" class="loading_svg"></h2>
+          </div>
+          <div id="create_finish_button" class="button create_button button_disabled">Go to your account</div>
+        </div>
+      </div>
+      <div id="new_banned" style="display: none">
+        <div class="main_header">
+          <h1>You was banned from minting</h1>
+          <h3>
+            It could happened because a lot of tokens with voice-spam or offensive content in any token you created.
+            <br />
+            List of all blocked tokens you can see in "Locked" tab of your account.
+          </h3>
+        </div>
+      </div>
+    </main>
+
+    <div id="menu" class="menu">
+      <div class="menu_container">
+        <div class="menu_item" id="menu_gallery">
+          <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg" class="menu_svg">
+            <path d="M0 0h48v48H0z" fill="none" />
+            <path
+              d="M 6 26 h 16 V 6 C 18 6 14 6 10 6 C 8 6 6 8 6 10 v 16 z m 4 16 h 12 V 30 H 6 v 8 C 6 40 8 42 10 42 z m 20 0 h 8 C 40 42 42 40 42 38 V 22 H 26 v 20 z m -4 -36 v 12 h 16 V 10 C 42 8 40 6 38 6 H 26 z"
+            />
+          </svg>
+        </div>
+        <div class="menu_item" id="menu_create">
+          <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg" class="menu_svg">
+            <path d="M38 6H10c-2.21 0-4 1.79-4 4v28c0 2.21 1.79 4 4 4h28c2.21 0 4-1.79 4-4V10c0-2.21-1.79-4-4-4zm-4 20h-8v8h-4v-8h-8v-4h8v-8h4v8h8v4z" />
+            <path d="M0 0h48v48H0z" fill="none" />
+          </svg>
+        </div>
+        <div class="menu_item" id="menu_account">
+          <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg" class="menu_svg">
+            <path
+              d="M6 10v28c0 2.21 1.79 4 4 4h28c2.21 0 4-1.79 4-4V10c0-2.21-1.79-4-4-4H10c-2.21 0-4 1.79-4 4zm24 8c0 3.32-2.69 6-6 6s-6-2.68-6-6c0-3.31 2.69-6 6-6s6 2.69 6 6zM12 34c0-4 8-6.2 12-6.2S36 30 36 34v2H12v-2z"
+            />
+            <path d="M0 0h48v48H0z" fill="none" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <script defer src="/src/js/global_vars.js"></script>
+
+    <script defer src="/src/js/sign_data.js" type="module"></script>
+    <script defer src="/src/js/helpers.js"></script>
+    <script defer src="/src/js/login_logout_near.js"></script>
+    <script defer src="/src/js/actualize_history.js"></script>
+
+    <script defer type="module" src="/src/js/player/howler.core.js"></script>
+    <script defer type="module" src="/src/js/player/siriwave.js"></script>
+    <script defer type="module" src="/src/js/player/player.js"></script>
+
+    <script defer src="/src/js/volume.js"></script>
+    <script defer src="/src/js/play_all.js"></script>
+    <script defer src="/src/js/blur_back.js"></script>
+
+    <script defer src="/src/js/main/main_sort_interaction.js"></script>
+    <script defer src="/src/js/main/main_loading_cards.js"></script>
+    <script defer src="/src/js/main/main_token_buy.js"></script>
+    <script defer src="/src/js/main/main_reports.js"></script>
+    <script defer src="/src/js/main/main_full_token_view.js"></script>
+    <script defer src="/src/js/main/main_top_button.js"></script>
+
+    <script defer src="/src/js/account/acc_sort_interaction.js"></script>
+    <script defer src="/src/js/account/acc_filt_interaction.js"></script>
+    <script defer src="/src/js/account/acc_loading_cards.js"></script>
+    <script defer src="/src/js/account/acc_token_buy.js"></script>
+    <script defer src="/src/js/account/acc_token_burn.js"></script>
+    <script defer src="/src/js/account/acc_token_update.js"></script>
+    <script defer src="/src/js/account/acc_full_token_view.js"></script>
+    <script defer src="/src/js/account/acc_top_button.js"></script>
+
+    <script defer src="/src/js/new/new_nft.js"></script>
+
+    <script defer src="/src/js/menu_bar.js"></script>
+    <script defer src="/src/js/historyupdate.js"></script>
+
+    <script defer src="/src/js/starty.js"></script>
+  </body>
+</html>

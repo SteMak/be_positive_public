@@ -1,0 +1,13 @@
+[Unit]
+Description=db_viewer
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5s
+ExecStart=/home/panda/be_positive/server_side/cmd/db_viewer/db_viewer
+EnvironmentFile=/home/panda/be_positive/.env
+EnvironmentFile=/home/panda/be_positive/neardev/dev-account.env
+
+[Install]
+WantedBy=multi-user.target

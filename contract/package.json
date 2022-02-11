@@ -1,0 +1,17 @@
+{
+  "name": "be_positive",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "build": "node compile.js --release",
+    "build:debug": "node compile.js --debug",
+    "test": "cargo test -- --nocapture",
+    "deploy:debug": "npm run build:debug && npx near dev-deploy",
+    "deploy": "npm run build && npx near deploy haher.testnet"
+  },
+  "devDependencies": {
+    "near-cli": "^2.1.1",
+    "shelljs": "^0.8.4"
+  },
+  "dependencies": {}
+}

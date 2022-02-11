@@ -1,0 +1,151 @@
+.create_container {
+  color: var(--straight-bright);
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 60px;
+  width: 85vw;
+  max-width: 500px;
+}
+
+.create_info {
+  font-size: 16px;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+.create_info_warning {
+  margin-top: 8px;
+  margin-bottom: 10px;
+  margin: 0;
+  font-weight: 600;
+  color: var(--straight-main);
+}
+
+.create_error_file {
+  font-size: 18px;
+  word-break: break-word;
+  color: var(--straight-main);
+}
+
+.create_info_row_container {
+  margin-bottom: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.create_info_row_container_disabled {
+  pointer-events: none;
+  visibility: hidden;
+}
+.create_info_row_container_disabled .create_info_input_price {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.create_info_input {
+  margin: 0;
+  font-size: 18px;
+  padding: 8px 20px;
+  border-radius: 6px;
+  border-width: 1px;
+  min-height: 28px;
+
+  padding: 5px 8px;
+  width: calc(100% - 14px);
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: var(--straight-bright);
+
+  background-color: var(--inverse-night);
+  border-color: var(--input-borders);
+
+  border-style: solid;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  resize: none;
+}
+
+.create_info_input:focus {
+  outline: none;
+}
+
+.create_info_input_price {
+  color: var(--straight-main);
+  width: 60px;
+  margin-bottom: 0;
+  padding: 4px 6px;
+}
+
+.create_info_stressed {
+  text-align: center;
+  font-weight: 600;
+  margin-top: 0px;
+  margin-bottom: 4px;
+}
+
+.create_button {
+  /* margin-top: 15px; */
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.create_info_input_file {
+  width: 100%;
+  min-height: 24px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding: 0;
+  border-radius: 6px;
+  border: none;
+}
+.create_info_input::-webkit-file-upload-button {
+  visibility: hidden;
+  border: none;
+}
+
+.create_info_input_file::before {
+  content: "Select file";
+  width: 100%;
+  display: inline-block;
+  outline: none;
+  white-space: nowrap;
+
+  min-height: 24px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 8px 0;
+  border-radius: 6px;
+  text-align: center;
+
+  background: var(--button-background);
+  color: var(--straight-main);
+}
+.button_active.create_info_input::before,
+.create_info_input:active::before {
+  background: var(--button-background-active);
+}
+
+.back_text {
+  background-color: var(--inverse-dark);
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  backdrop-filter: blur(25px);
+}
+.back_warning {
+  background-color: var(--palitra-warning);
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  backdrop-filter: blur(25px);
+}
+
+.back_warning_empty {
+  display: none;
+}

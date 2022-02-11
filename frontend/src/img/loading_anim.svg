@@ -1,0 +1,70 @@
+<svg id="e6QXJBN3VP01" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 12" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+	<style>
+		<![CDATA[
+		#e6QXJBN3VP04_ts {
+		animation: e6QXJBN3VP04_ts__ts 600ms linear infinite normal forwards
+		}
+		@keyframes e6QXJBN3VP04_ts__ts {
+		0% {
+		transform: translate(16.22094px,6px) scale(0.5,0.5)
+		}
+		33.333333% {
+		transform: translate(16.22094px,6px) scale(1,1)
+		}
+		66.666667% {
+		transform: translate(16.22094px,6px) scale(1,1)
+		}
+		100% {
+		transform: translate(16.22094px,6px) scale(0.5,0.5)
+		}
+		}
+		#e6QXJBN3VP05_ts {
+		animation: e6QXJBN3VP05_ts__ts 600ms linear infinite normal forwards
+		}
+		@keyframes e6QXJBN3VP05_ts__ts {
+		0% {
+		transform: translate(24px,6px) scale(1,1)
+		}
+		33.333333% {
+		transform: translate(24px,6px) scale(0.5,0.5)
+		}
+		66.666667% {
+		transform: translate(24px,6px) scale(1,1)
+		}
+		100% {
+		transform: translate(24px,6px) scale(1,1)
+		}
+		}
+		#e6QXJBN3VP06_ts {
+		animation: e6QXJBN3VP06_ts__ts 600ms linear infinite normal forwards
+		}
+		@keyframes e6QXJBN3VP06_ts__ts {
+		0% {
+		transform: translate(31.77906px,6px) scale(1,1)
+		}
+		33.333333% {
+		transform: translate(31.77906px,6px) scale(1,1)
+		}
+		66.666667% {
+		transform: translate(31.77906px,6px) scale(0.5,0.5)
+		}
+		100% {
+		transform: translate(31.77906px,6px) scale(1,1)
+		}
+		}
+		]]>
+	</style>
+	<g id="e6QXJBN3VP02">
+		<g id="e6QXJBN3VP03">
+			<g id="e6QXJBN3VP04_ts" transform="translate(16.22094,6) scale(0.5,0.5)">
+				<circle id="e6QXJBN3VP04" r="1.47609" transform="translate(-0.00004,0)" fill="none" stroke="#f1f1f1c4" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" />
+			</g>
+			<g id="e6QXJBN3VP05_ts" transform="translate(24,6) scale(1,1)">
+				<circle id="e6QXJBN3VP05" r="1.47609" transform="translate(0,0)" fill="none" stroke="#f1f1f1c4" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" />
+			</g>
+			<g id="e6QXJBN3VP06_ts" transform="translate(31.77906,6) scale(1,1)">
+				<circle id="e6QXJBN3VP06" r="1.47609" transform="translate(0.00004,0)" fill="none" stroke="#f1f1f1c4" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" />
+			</g>
+		</g>
+	</g>
+</svg>

@@ -1,0 +1,43 @@
+server {
+  server_name domain.com www.domain.com;
+
+  location / {
+    proxy_pass http://localhost:1234/;
+  }
+
+  location /ipfs/ {
+    proxy_pass http://localhost:8080/ipfs/;
+  }
+
+  location /token/ {
+    proxy_pass http://localhost:8081/token/;
+  }
+  location /user/ {
+    proxy_pass http://localhost:8081/user/;
+  }
+  location /tokens/ {
+    proxy_pass http://localhost:8081/tokens/;
+  }
+  location /owner_tokens/ {
+    proxy_pass http://localhost:8081/owner_tokens/;
+  }
+  location /report_speech/ {
+    proxy_pass http://localhost:8081/report_speech/;
+  }
+  location /report_offence/ {
+    proxy_pass http://localhost:8081/report_offence/;
+  }
+
+  location /nft_create/ {
+    client_max_body_size 3M;
+    proxy_pass http://localhost:8082/nft_create/;
+  }
+  location = /nft_hash {
+    client_max_body_size 3M;
+    proxy_pass http://localhost:8082/nft_hash;
+  }
+  
+  location /nft_remove/ {
+    proxy_pass http://localhost:8083/nft_remove/;
+  }
+}

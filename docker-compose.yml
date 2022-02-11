@@ -1,0 +1,28 @@
+version: "3"
+services:
+  positive_database:
+    image: "postgres:14.0"
+    restart: always
+    env_file: .env
+    volumes:
+      - positive_data:/var/lib/postgresql/data/
+    ports:
+      - 127.0.0.1:57565:5432
+
+  ipfs_node:
+    image: ipfs/go-ipfs:latest
+    restart: always
+    env_file: .env
+    volumes:
+      - ipfs_staging:/export
+      - ipfs_data:/data/ipfs
+    ports:
+      - 4001:4001
+      - 4001:4001/udp
+      - 8080:8080
+      - 127.0.0.1:5001:5001
+
+volumes:
+  positive_data:
+  ipfs_staging:
+  ipfs_data:

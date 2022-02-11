@@ -1,0 +1,73 @@
+.cards {
+  margin: 15px auto 0 auto;
+  width: min-content;
+}
+
+.card {
+  /* backdrop-filter: brightness(0.7); */
+  max-width: 500px;
+  box-sizing: border-box;
+  margin: 0 0 15px 0;
+  height: min-content;
+  width: 85vw;
+  padding: 6px;
+  background-color: var(--inverse-night);
+  border-radius: 6px;
+  color: var(--straight-main);
+}
+
+.nothing_card {
+  margin: auto;
+  margin-bottom: 112px;
+}
+
+.card_active {
+  background-color: var(--card-active);
+}
+
+.card_active .button_card_sign_in,
+.card:active .button_card_sign_in {
+  background: var(--button-background-active);
+}
+
+.card_title {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 6px;
+  text-align: center;
+  color: var(--straight-bright);
+}
+
+.card_footer {
+  padding: 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 26px;
+}
+
+.card_price {
+  margin: 0;
+}
+.card_price_value {
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--price);
+}
+.card:hover .card_price_value {
+  color: var(--straight-bright);
+}
+
+.more_button {
+  /* font-size: 18px;
+  font-weight: 600; */
+  background-image: url("/src/img/dots_v.svg");
+  background-repeat: no-repeat;
+  height: 18px;
+  width: 15px;
+}
+
+.card_sign_in {
+  margin: 33px auto 17px auto;
+  text-align: center;
+}

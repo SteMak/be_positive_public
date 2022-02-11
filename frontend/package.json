@@ -1,0 +1,24 @@
+{
+  "name": "be_positive_site",
+  "version": "0.0.1",
+  "description": "Site for Be Positive project",
+  "author": "SteMak",
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel src/html/index.html",
+    "predev": "shx rm -rf dist/*",
+    "build": "parcel build src/html/index.html --no-optimize",
+    "prebuild": "shx rm -rf dist/*"
+  },
+  "devDependencies": {
+    "@parcel/transformer-image": "2.0.0-rc.0",
+    "parcel": "^2.0.0-rc.0",
+    "shx": "^0.3.3"
+  },
+  "dependencies": {
+    "howler": "^2.2.3",
+    "ipfs": "^0.58.6",
+    "music-visualization-canvas": "^1.1.0",
+    "near-api-js": "^0.43.1"
+  }
+}
