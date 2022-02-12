@@ -6,6 +6,13 @@
 
 <!-- ### [Demo on YouTube](https://www.youtube.com/watch?v=) -->
 
+### Acknowledgements
+I wish to acknowledge the help provided by my designer. Developing of the design made me crazy at first, but now comparing initial and current view I bow in respect to her experience and skills
+
+I am particularly grateful for the assistance given by my girlfriend with making animations, icons and video processing
+
+I would like to offer my special thanks to NEAR, its community and writers of guide books. NEAR Protocol is really the most developer-friendly blockchain.
+
 
 ## General idea
 ### "10 minutes of laughing replaces a glass of sour cream" (folk wisdom)
