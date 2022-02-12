@@ -11,12 +11,12 @@ I wish to acknowledge the help provided by my designer. Developing of the design
 
 I am particularly grateful for the assistance given by my girlfriend with making animations, icons and video processing
 
-I would like to offer my special thanks to NEAR, its community and writers of guide books. NEAR Protocol is really the most developer-friendly blockchain.
+I would like to offer my special thanks to NEAR, its community and writers of guide books. NEAR Protocol is really the most developer-friendly blockchain
 
 
 ## General idea
 ### "10 minutes of laughing replaces a glass of sour cream" (folk wisdom)
-In our mad world, people often forget about smiling and laughing. In such way this project aims to bring to **the blockchain NFTs, which makes people laugh**
+In our mad world, people often forget about smiling and laughing. In such way this project aims to **bring to the blockchain NFTs, which make people laughing**
 
 It is not essential for users to be an active part of blockchain community. You can open the website and listen just recorded laugh.
 On the other side, you can just turn on your microphone, record funny situations of your life and share them to the world
