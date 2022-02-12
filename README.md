@@ -1,10 +1,11 @@
 # Haher
 ### NFT-laugh marketplace, which makes people smiling
 
-
 ### [Demo site](https://haher.live)
 
-<!-- ### [Demo on YouTube](https://www.youtube.com/watch?v=) -->
+### [Demo on YouTube](https://www.youtube.com/watch?v=uCjiySCFxKk)
+
+### [Project story](https://github.com/SteMak/be_positive_public/blob/master/PROJECT_STORY.md)
 
 ### Acknowledgements
 I wish to acknowledge the help provided by my designer. Developing of the design made me crazy at first, but now comparing initial and current view I bow in respect to her experience and skills
@@ -36,7 +37,7 @@ Listening haha tokens makes you laugh too. That's way the project bring a drop o
 - Add **laugh chains** that will inform author how reaction on his laugh goes through the world
 - Make soft design patterns to **change background video on holidays**
 - Renew design and write **mobile app** on flutter
-- Think about **extending sounds** from laugh to **audio books or something else**
+- Think about **extending sounds** from laugh to **audiobooks or something else**
 
 
 ## For users
@@ -47,7 +48,7 @@ Listening haha tokens makes you laugh too. That's way the project bring a drop o
 
 Also, you can look at another's account by link https://haher.live/account_ACCOUNT_ADDRESS
 
-**On any page with haha tokens you can press "Play All" button to play all laugh records parallelly (the button is located on the top of page)**
+**On any page with haha tokens, you can press "Play All" button to play all laugh records parallelly (the button is located on the top of the page)**
 
 
 ## For developers
@@ -56,14 +57,14 @@ This repository contains folders with
 - `frontend` written on vanilla-js using [parcel](https://parceljs.org) to import npm modules
 - `server_side` written on Go
 
-The main goal of `server_side` is to absorb data from `contract` and process it to `frontend` in order to make site quicker, don't take fee from users and pin images to ipfs
+The main goal of `server_side` is to absorb data from `contract` and process it to `frontend` in order to make site quicker, don't take fee from users and pin images to IPFS
 
 ### Developing contract
 Download dependencies
 ```sh
 yarn
 ```
-Change `contract/lib.rs` as you need and then call
+Change `contract/src/lib.rs` as you need and then call
 ```sh
 yarn deploy:debug
 ```
