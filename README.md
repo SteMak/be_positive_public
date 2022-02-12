@@ -9,7 +9,7 @@
 
 ## General idea
 ### "10 minutes of laughing replaces a glass of sour cream" (folk wisdom)
-In our mad world, people often forget about smiling and laughing. In such way this project aims to bring to the blockchain NFTs, which makes people laugh
+In our mad world, people often forget about smiling and laughing. In such way this project aims to bring to **the blockchain NFTs, which makes people laugh**
 
 It is not essential for users to be an active part of blockchain community. You can open the website and listen just recorded laugh.
 On the other side, you can just turn on your microphone, record funny situations of your life and share them to the world
@@ -19,10 +19,17 @@ Of course, there is the possibility to collect and exchange NFT tokens, but **th
 ### "Laughter is as contagious as yawning is" (Heinrich Heine)
 Listening haha tokens makes you laugh too. That's way the project bring a drop of goodness into gray everyday life
 
-### "Audio NFT are a new way of looking at blockchain artworks"
-In most of the projects NFTs are pictures, but if there are a lot of bright artworks in one place, users' attention is going, people don't see interesting details and became exhausted rapidly
 
-On the other side, listening short laughing records uplift users and don't exhaust them. In such way it can be drawn a parallel with memes
+## Plans for future
+- Launch in **mainnet**
+- Add **liked NFTs**
+- Add **NFT collections** (like playlists)
+- Think about **coloring NFT cards**
+- Add ability to **record haha token as answer** on token of another user
+- Add **laugh chains** that will inform author how reaction on his laugh goes through the world
+- Make soft design patterns to **change background video on holidays**
+- Renew design and write **mobile app** on flutter
+- Think about **extending sounds** from laugh to **audio books or something else**
 
 
 ## For users
@@ -33,15 +40,7 @@ On the other side, listening short laughing records uplift users and don't exhau
 
 Also, you can look at another's account by link https://haher.live/account_ACCOUNT_ADDRESS
 
-
-## Plans for future
-- Add liked NFTs
-- Launch in mainnet
-- Add NFT collections (like playlists)
-- Think about coloring NFT cards
-- Make soft design patterns to change background video on holidays
-- Renew design and write mobile app on flutter
-- Think about extending sounds from laugh to audio books or something else
+**On any page with haha tokens you can press "Play All" button to play all laugh records parallelly (the button is located on the top of page)**
 
 
 ## For developers
