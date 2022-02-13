@@ -3,7 +3,7 @@
 
 ### [Demo site](https://haher.live)
 
-### [Demo on YouTube](https://www.youtube.com/watch?v=2BA8qs6pjuQ)
+### [Demo on YouTube](https://www.youtube.com/watch?v=-xXLl_gw6C8)
 
 ### [Project story](https://github.com/SteMak/be_positive_public/blob/master/PROJECT_STORY.md)
 
