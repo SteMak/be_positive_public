@@ -55,38 +55,82 @@ Also, you can look at another's account by link https://haher.live/account_ACCOU
 This repository contains folders with 
 - `contract` written on [Rust](https://docs.rs/near-sdk)
 - `frontend` written on vanilla-js using [parcel](https://parceljs.org) to import npm modules
-- `server_side` written on Go
+- `server_side` written on Golang
 
 The main goal of `server_side` is to absorb data from `contract` and process it to `frontend` in order to make site quicker, don't take fee from users and pin images to IPFS
 
-### Developing contract
-Download dependencies
+### Requirements:
+- Rust
+- Golang
+- NodeJS
+- yarn
+- git
+- nginx
+- docker and docker-compose
+- golang-migrate
+- base-devel or build-essential
+
 ```sh
-yarn
+git clone https://github.com/SteMak/be_positive_public.git
+cd be_positive_public
 ```
-Change `contract/src/lib.rs` as you need and then call
+
+### Starting contract
 ```sh
+rm neardev/dev-account
+rm neardev/dev-account.env
+
+cd contract
+rustup target add wasm32-unknown-unknown
+yarn
 yarn deploy:debug
 ```
 
-### Developing server_side
-In `server_side/cmd` there are several entries
+Edit `package.json` line of `scripts/deploy` to deploy contract to defined name
+```sh
+yarn deploy
+```
 
-You can build them all by
+### Starting server
+Edit nginx `server_name` line config and copy it:
+```sh
+cp vm_configs/nginx/host /etc/nginx/sites-enabled/
+nano /etc/nginx/sites-enabled/host
+```
+
+Prepare IPFS and database:
 ```sh
 ./vm_configs/scripts/compile_server.bash
+export $(grep -v '^#' .env | xargs)
+export $(grep -v '^#' neardev/dev-account.env | xargs)
+docker-compose up -d
+./database/scripts/up.sh
 ```
 
-In `vm_configs/system_units` there are some system unit files that you can use
+Run server entries:
+```sh
+cd server_side/cmd
+./ipfs_actualize/ipfs_actualize
+./db_actualize/db_actualize &
+./db_viewer/db_viewer &
+./ipfs_adder/ipfs_adder &
+./ipfs_remover/ipfs_remover &
+./site_serving/site_serving &
+```
 
-Don't forget about `database` folder that will help you to run database on your server
+In `vm_configs/system_units` there are some systemd unit files that you can use
 
 ### Developing frontend
-Download dependencies
 ```sh
+cd frontend
 yarn
+
+curl -o src/img/cat_ugr.mp4 https://media.istockphoto.com/videos/scottish-fold-cat-video-id687156136
+
+yarn dev
 ```
-All sources are in `frontend/src/`. In order to connect to custom contract change following strings in `frontend/src/js/wallet_connection.js`
+
+In order to connect to custom contract change following strings in `frontend/src/js/wallet_connection.js`
 ```js
 const near_config = {
   networkId: NETWORK,
@@ -96,11 +140,7 @@ const near_config = {
 }
 ```
 
-In order to run site locally run
-```sh
-yarn dev
-```
-If you want to build site run
+If you want to build site for serving by server run
 ```sh
 yarn build
 ```
