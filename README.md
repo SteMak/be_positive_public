@@ -72,30 +72,39 @@ The main goal of `server_side` is to absorb data from `contract` and process it 
 
 ```sh
 git clone https://github.com/SteMak/be_positive_public.git
+export PROJECT_PATH=$PWD
 cd be_positive_public
 ```
 
 ### Starting contract
 ```sh
-rm neardev/dev-account
-rm neardev/dev-account.env
-
 cd contract
 rustup target add wasm32-unknown-unknown
 yarn
 yarn deploy:debug
+mv neardev/* ../neardev
 ```
+
+There is `start.sh` that you can edit and run to quick creation of tokens
 
 Edit `package.json` line of `scripts/deploy` to deploy contract to defined name
 ```sh
 yarn deploy
 ```
+Then change files of `../neardev` folder to be in resonance with contract name
 
 ### Starting server
-Edit nginx `server_name` line config and copy it:
+Let's configure nginx!
 ```sh
-cp vm_configs/nginx/host /etc/nginx/sites-enabled/
-nano /etc/nginx/sites-enabled/host
+cp $PROJECT_PATH/be_positive_public/vm_configs/nginx/host.conf /etc/nginx/haher.conf
+```
+Disable serving on `localhost:80` in `/etc/nginx/nginx.conf` and add the following line to `http` section
+```nginx
+include haher.conf;
+```
+And don't forget to restart nginx
+```sh
+systemctl restart nginx
 ```
 
 Prepare IPFS and database:
@@ -115,8 +124,16 @@ cd server_side/cmd
 ./db_viewer/db_viewer &
 ./ipfs_adder/ipfs_adder &
 ./ipfs_remover/ipfs_remover &
-./site_serving/site_serving &
 ```
+
+Remember: to run serving site you should first build frontend (look to the next section)
+```
+./site_serving/site_serving $PROJECT_PATH/be_positive_public/frontend/dist &
+```
+
+To restart server parts you should kill them firstly
+
+Be careful: after closing the terminal all server entries will be stopped
 
 In `vm_configs/system_units` there are some systemd unit files that you can use
 
